@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ApiUtil {
-
     private ApiUtil(){}
 
     public static final String BASE_API_URL =
@@ -24,7 +23,8 @@ public class ApiUtil {
     public static final String KEY = "key";
     public static final String API_KEY = "AIzaSyBxHmT9nFCp9n2uOHkS3Gcq2OO3zbxaMrw";
 
-    public static URL buildUrl(String title){
+    public static URL buildUrl(String title) {
+
         URL url = null;
         Uri uri = Uri.parse(BASE_API_URL).buildUpon()
                 .appendQueryParameter(QUERY_PARAMETER_KEY, title)
@@ -32,30 +32,33 @@ public class ApiUtil {
                 .build();
         try {
             url = new URL(uri.toString());
-        } catch (Exception e){
+        }
+        catch (Exception e){
             e.printStackTrace();
         }
         return url;
     }
 
     public static String getJson(URL url) throws IOException {
+
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
         try {
             InputStream stream = connection.getInputStream();
             Scanner scanner = new Scanner(stream);
             scanner.useDelimiter("\\A");
-
-            Boolean hasData = scanner.hasNext();
-            if (hasData){
+            boolean hasData = scanner.hasNext();
+            if (hasData) {
                 return scanner.next();
             } else {
                 return null;
             }
-        } catch (Exception e){
+        }
+        catch (Exception e){
             Log.d("Error", e.toString());
             return null;
-        } finally {
+        }
+        finally {
             connection.disconnect();
         }
     }
@@ -66,23 +69,23 @@ public class ApiUtil {
         final String SUBTITLE = "subtitle";
         final String AUTHORS = "authors";
         final String PUBLISHER = "publisher";
-        final String PUNLISHED_DATE = "publishedDate";
-        final String VOLUME_INFO = "volumeInfo";
+        final String PUBLISHED_DATE="publishedDate";
         final String ITEMS = "items";
-
+        final String VOLUMEINFO = "volumeInfo";
 
         ArrayList<Book> books = new ArrayList<Book>();
         try {
             JSONObject jsonBooks = new JSONObject(json);
             JSONArray arrayBooks = jsonBooks.getJSONArray(ITEMS);
             int numberOfBooks = arrayBooks.length();
-            for (int i = 0; i < numberOfBooks; i++){
+
+            for (int i =0; i<numberOfBooks;i++){
                 JSONObject bookJSON = arrayBooks.getJSONObject(i);
                 JSONObject volumeInfoJSON =
-                        bookJSON.getJSONObject(VOLUME_INFO);
+                        bookJSON.getJSONObject(VOLUMEINFO);
                 int authorNum = volumeInfoJSON.getJSONArray(AUTHORS).length();
                 String[] authors = new String[authorNum];
-                for (int j=0; j < authorNum; j++){
+                for (int j=0; j<authorNum;j++) {
                     authors[j] = volumeInfoJSON.getJSONArray(AUTHORS).get(j).toString();
                 }
                 Book book = new Book(
@@ -91,12 +94,16 @@ public class ApiUtil {
                         (volumeInfoJSON.isNull(SUBTITLE)?"":volumeInfoJSON.getString(SUBTITLE)),
                         authors,
                         volumeInfoJSON.getString(PUBLISHER),
-                        volumeInfoJSON.getString(PUNLISHED_DATE));
+                        volumeInfoJSON.getString(PUBLISHED_DATE));
                 books.add(book);
+
             }
-        } catch (JSONException e){
+        }
+        catch (JSONException e) {
             e.printStackTrace();
         }
+
+
 
         return books;
     }
