@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class BookListActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
+public class BookListActivity extends AppCompatActivity implements SearchView.OnQueryTextListener{
 
     private ProgressBar mLoading;
     private RecyclerView rvBooks;
