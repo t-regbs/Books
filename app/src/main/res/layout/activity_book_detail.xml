@@ -19,6 +19,7 @@
                 android:id="@+id/tvTitle"
                 android:layout_width="0dp"
                 android:textSize="36sp"
+                android:textColor="@color/colorPrimaryDark"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/standard_margin"
                 android:layout_marginTop="@dimen/standard_margin"
@@ -32,6 +33,7 @@
                 android:id="@+id/tvSubtitle"
                 android:layout_width="0dp"
                 android:textSize="24sp"
+                android:textColor="@color/colorPrimary"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/standard_margin"
                 android:layout_marginTop="@dimen/standard_margin"
@@ -48,13 +50,14 @@
                 android:layout_marginStart="@dimen/standard_margin"
                 android:layout_marginTop="@dimen/standard_margin"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvSubtitle"
-                app:srcCompat="@drawable/book_open" />
+                android:imageUrl="@{Book.thumbnail}"
+                app:layout_constraintTop_toBottomOf="@+id/tvSubtitle" />
 
             <TextView
                 android:id="@+id/tvAuthors"
                 android:layout_width="0dp"
                 android:textSize="18sp"
+                android:textColor="@color/colorAccent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/standard_margin"
                 android:layout_marginTop="@dimen/standard_margin"
