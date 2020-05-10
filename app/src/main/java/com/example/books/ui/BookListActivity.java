@@ -1,4 +1,4 @@
-package com.example.books;
+package com.example.books.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +17,13 @@ import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.TextView;
 
+import com.example.books.ApiUtil;
+import com.example.books.Book;
+import com.example.books.BooksAdapter;
+import com.example.books.R;
+import com.example.books.SearchActivity;
+import com.example.books.SpUtil;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -28,7 +35,7 @@ public class BookListActivity extends AppCompatActivity implements SearchView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_book_list);
+        setContentView(R.layout.fragment_book_list);
 
         mLoading = findViewById(R.id.pb_loading);
         rvBooks = findViewById(R.id.rv_books);

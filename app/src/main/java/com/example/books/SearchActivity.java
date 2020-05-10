@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.books.ui.BookListActivity;
+
 import java.net.URL;
 
 public class SearchActivity extends AppCompatActivity {
@@ -17,7 +19,7 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
+        setContentView(R.layout.fragment_search);
         final EditText etTitle = findViewById(R.id.etTitle);
         final EditText etAuthor = findViewById(R.id.etAuthor);
         final EditText etPublisher = findViewById(R.id.etPublisher);

@@ -16,10 +16,10 @@
         android:theme="@style/AppTheme">
         <activity android:name=".SearchActivity"></activity>
         <activity android:name=".BookDetail" />
-        <activity android:name=".BookListActivity">
+        <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
