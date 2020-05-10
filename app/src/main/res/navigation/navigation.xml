@@ -9,6 +9,23 @@
         android:id="@+id/booklist_dest"
         android:name="com.example.books.ui.BookListFragment"
         android:label="Books"
-        tools:layout="@layout/fragment_book_list"/>
+        tools:layout="@layout/fragment_book_list">
+        <argument
+            android:name="query"
+            app:argType="string"
+            android:defaultValue="cooking" />
+        <action
+            android:id="@+id/action_booklist_dest_to_search_dest"
+            app:destination="@id/search_dest" />
+    </fragment>
+    <fragment
+        android:id="@+id/search_dest"
+        android:name="com.example.books.ui.SearchFragment"
+        android:label="SearchFragment"
+        tools:layout="@layout/fragment_search">
+        <action
+            android:id="@+id/action_searchFragment_to_booklist_dest"
+            app:destination="@id/booklist_dest" />
+    </fragment>
 
 </navigation>
