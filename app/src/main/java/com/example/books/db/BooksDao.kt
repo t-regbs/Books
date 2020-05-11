@@ -14,6 +14,6 @@ interface BooksDao {
 
     @Query("SELECT * FROM books WHERE (title LIKE :title) OR (authors LIKE :author) " +
             "OR (publisher LIKE :publisher) ORDER BY title ASC")
-    fun getBooks(title: String, author: String = "", publisher: String = "", isbn: String = "")
+    fun getBooks(title: String, author: String = "", publisher: String = "")
             : DataSource.Factory<Int, Book>
 }

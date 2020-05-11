@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
 
 import com.example.books.databinding.ActivityBookDetailBinding;
+import com.example.books.model.Book;
 
 public class BookDetail extends AppCompatActivity {
 

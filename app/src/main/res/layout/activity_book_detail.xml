@@ -5,7 +5,7 @@
     <data>
         <variable
             name="Book"
-            type="com.example.books.Book" />
+            type="com.example.books.model.Book" />
     </data>
     <ScrollView
         android:layout_width="match_parent"
@@ -24,7 +24,7 @@
                 android:layout_marginStart="@dimen/standard_margin"
                 android:layout_marginTop="@dimen/standard_margin"
                 android:layout_marginEnd="@dimen/standard_margin"
-                android:text="@{Book.title}"
+                android:text="@{Book.volumeInfo.title}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -38,7 +38,7 @@
                 android:layout_marginStart="@dimen/standard_margin"
                 android:layout_marginTop="@dimen/standard_margin"
                 android:layout_marginEnd="@dimen/standard_margin"
-                android:text="@{Book.subTitle}"
+                android:text="@{Book.volumeInfo.subTitle}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
@@ -50,7 +50,7 @@
                 android:layout_marginStart="@dimen/standard_margin"
                 android:layout_marginTop="@dimen/standard_margin"
                 app:layout_constraintStart_toStartOf="parent"
-                android:imageUrl="@{Book.thumbnail}"
+                android:imageUrl="@{Book.volumeInfo.thumbnail}"
                 app:layout_constraintTop_toBottomOf="@+id/tvSubtitle" />
 
             <TextView
@@ -62,7 +62,7 @@
                 android:layout_marginStart="@dimen/standard_margin"
                 android:layout_marginTop="@dimen/standard_margin"
                 android:layout_marginEnd="@dimen/standard_margin"
-                android:text="@{Book.authors}"
+                android:text="@{Book.volumeInfo.authors[0]}"
                 app:layout_constraintStart_toEndOf="@+id/imgCover"
                 app:layout_constraintTop_toBottomOf="@+id/tvSubtitle" />
 
@@ -74,7 +74,7 @@
                 android:layout_marginStart="@dimen/standard_margin"
                 android:layout_marginTop="@dimen/standard_margin"
                 android:layout_marginEnd="@dimen/standard_margin"
-                android:text="@{Book.publisher}"
+                android:text="@{Book.volumeInfo.publisher}"
                 app:layout_constraintStart_toEndOf="@+id/imgCover"
                 app:layout_constraintTop_toBottomOf="@+id/tvAuthors" />
 
@@ -86,7 +86,7 @@
                 android:layout_marginStart="@dimen/standard_margin"
                 android:layout_marginTop="@dimen/standard_margin"
                 android:layout_marginEnd="@dimen/standard_margin"
-                android:text="@{Book.publishedDate}"
+                android:text="@{Book.volumeInfo.publishedDate}"
                 app:layout_constraintStart_toEndOf="@+id/imgCover"
                 app:layout_constraintTop_toBottomOf="@+id/tvPublisher" />
 
@@ -98,7 +98,7 @@
                 android:layout_marginStart="@dimen/standard_margin"
                 android:layout_marginTop="@dimen/standard_margin"
                 android:layout_marginEnd="@dimen/standard_margin"
-                android:text="@{Book.description}"
+                android:text="@{Book.volumeInfo.description}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.47"
                 app:layout_constraintStart_toStartOf="parent"

@@ -2,6 +2,9 @@ package com.example.books
 
 import android.content.Context
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestManager
+import com.bumptech.glide.request.RequestOptions
 import com.example.books.api.BookService
 import com.example.books.db.BooksDatabase
 import com.example.books.db.BooksLocalCache
@@ -33,5 +36,15 @@ object Injection {
      */
     fun provideViewModelFactory(context: Context): ViewModelProvider.Factory {
         return ViewModelFactory(provideBooksRepository(context))
+    }
+
+    fun provideRequestOptions(): RequestOptions {
+        return RequestOptions
+                .placeholderOf(R.drawable.book_open)
+                .error(R.drawable.book_open)
+    }
+
+    fun provideGlideinstance(context: Context, requestOptions: RequestOptions) : RequestManager {
+        return Glide.with(context).setDefaultRequestOptions(requestOptions)
     }
 }

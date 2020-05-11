@@ -4,8 +4,11 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.books.BookDetail
 import com.example.books.R
 import com.example.books.model.Book
@@ -42,11 +45,11 @@ class BookViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     private fun showRepoData(book: Book) {
         this.book = book
-        tvTitle.text = book.title
+        tvTitle.text = book.volumeInfo.title
 
-        tvAuthors.text = book.authors
-        tvDate.text = book.publishedDate
-        tvPublisher.text = book.publisher
+        tvAuthors.text = book.volumeInfo.authors?.get(0) ?: ""
+        tvDate.text = book.volumeInfo.publishedDate
+        tvPublisher.text = book.volumeInfo.publisher
     }
 
     companion object {
@@ -56,4 +59,5 @@ class BookViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             return BookViewHolder(view)
         }
     }
+
 }
