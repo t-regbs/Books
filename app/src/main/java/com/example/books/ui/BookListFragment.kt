@@ -73,7 +73,7 @@ class BookListFragment : Fragment(){
                 binding.tvError.visibility = View.INVISIBLE
                 val books = ApiUtil.getBooksFromJson(result)
                 val resultString = ""
-                val adapter = BooksAdapter(books)
+                val adapter = BookAdapter()
                 binding.rvBooks.adapter = adapter
             }
         }
