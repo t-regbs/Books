@@ -1,20 +1,16 @@
 package com.example.books.ui
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.example.books.ApiUtil
 import com.example.books.R
-import com.example.books.SpUtil
+import com.example.books.util.SpUtil
 import com.example.books.databinding.FragmentSearchBinding
-import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI
 
 class SearchFragment : Fragment(){
 
@@ -22,6 +18,10 @@ class SearchFragment : Fragment(){
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentSearchBinding.inflate(inflater, container, false)
+
+//        viewModel = ViewModelProvider(this,
+//                Injection.provideViewModelFactory(requireContext())).get(SearchFragmentViewModel::class.java)
+
         return binding.root
     }
 
@@ -37,7 +37,6 @@ class SearchFragment : Fragment(){
                 val message = getString(R.string.no_search_data)
                 Toast.makeText(context, message, Toast.LENGTH_LONG).show()
             } else {
-                val queryURL = ApiUtil.buildUrl(title, author, publisher, isbn)
                 val context: Context = requireContext()
                 //Shared Preference
                 var position = SpUtil.getPreferenceInt(context, SpUtil.POSITION)
@@ -50,7 +49,8 @@ class SearchFragment : Fragment(){
                 val value = "$title,$author,$publisher,$isbn"
                 SpUtil.setPreferenceString(context, key, value)
                 SpUtil.setPreferenceInt(context, SpUtil.POSITION, position)
-                val action = SearchFragmentDirections.actionSearchFragmentToBooklistDest(queryURL.toString())
+
+                val action = SearchFragmentDirections.actionSearchFragmentToBooklistDest(value)
                 findNavController().navigate(action)
             }
         })

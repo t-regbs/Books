@@ -16,7 +16,7 @@ public class BookDetail extends AppCompatActivity {
         setContentView(R.layout.activity_book_detail);
 
         Book book = getIntent().getParcelableExtra("Book");
-        ActivityBookDetailBinding binding = DataBindingUtil.setContentView(this,
+       ActivityBookDetailBinding binding = DataBindingUtil.setContentView(this,
                 R.layout.activity_book_detail);
         binding.setBook(book);
     }

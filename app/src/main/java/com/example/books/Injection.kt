@@ -13,7 +13,7 @@ import com.example.books.ui.ViewModelFactory
 import java.util.concurrent.Executors
 
 object Injection {
-
+    const val API_KEY = "AIzaSyBxHmT9nFCp9n2uOHkS3Gcq2OO3zbxaMrw"
     /**
      * Creates an instance of [BooksLocalCache] based on the database DAO.
      */
@@ -38,13 +38,4 @@ object Injection {
         return ViewModelFactory(provideBooksRepository(context))
     }
 
-    fun provideRequestOptions(): RequestOptions {
-        return RequestOptions
-                .placeholderOf(R.drawable.book_open)
-                .error(R.drawable.book_open)
-    }
-
-    fun provideGlideinstance(context: Context, requestOptions: RequestOptions) : RequestManager {
-        return Glide.with(context).setDefaultRequestOptions(requestOptions)
-    }
 }

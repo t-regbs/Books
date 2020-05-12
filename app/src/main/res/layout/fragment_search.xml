@@ -6,43 +6,59 @@
     android:orientation="vertical"
     tools:context=".ui.SearchFragment">
 
-    <EditText
-        android:id="@+id/etTitle"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:layout_marginTop="@dimen/margin_search_activity"
-        android:hint="@string/hint_title"/>
+        android:layout_margin="4dp"
+        android:hint="@string/hint_title">
 
-    <EditText
-        android:id="@+id/etAuthor"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etTitle"
+            android:inputType="textPersonName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:layout_marginTop="@dimen/margin_search_activity"
-        android:hint="@string/hint_authors"/>
+        android:layout_margin="4dp"
+        android:hint="@string/hint_authors">
 
-    <EditText
-        android:id="@+id/etPublisher"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etAuthor"
+            android:inputType="textPersonName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:layout_marginTop="@dimen/margin_search_activity"
-        android:hint="@string/hint_publisher"/>
+        android:layout_margin="4dp"
+        android:hint="@string/hint_publisher">
 
-    <EditText
-        android:id="@+id/etIsbn"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etPublisher"
+            android:inputType="textPersonName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:layout_marginTop="@dimen/margin_search_activity"
-        android:hint="@string/hint_isbn"/>
+        android:layout_margin="4dp"
+        android:hint="@string/hint_isbn">
 
-    <Button
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etIsbn"
+            android:inputType="textPersonName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -50,6 +66,6 @@
         android:text="@string/search"
         android:layout_gravity="center"
         android:textSize="@dimen/search_button_text_size"
-        android:background="@drawable/search_button_shape"
+        android:backgroundTint="@color/colorAccent"
         android:textColor="@android:color/white"/>
 </LinearLayout>

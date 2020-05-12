@@ -16,12 +16,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.books.*
 import com.example.books.databinding.FragmentBookListBinding
+import com.example.books.util.SpUtil
+import timber.log.Timber
 import java.io.IOException
 import java.net.URL
 
 class BookListFragment : Fragment(){
 
-    private val TAG = BookListFragment::class.simpleName
     private lateinit var bookUrl: URL
     private lateinit var binding: FragmentBookListBinding
     private lateinit var viewModel: BookListViewModel
@@ -58,7 +59,7 @@ class BookListFragment : Fragment(){
                     updateBookListFromInput(query)
 
                 } catch (e: Exception){
-                    Log.d("Error", e.message);
+                    Timber.d(e.message);
                 }
                 return false
             }
@@ -84,7 +85,7 @@ class BookListFragment : Fragment(){
         binding.rvBooks.adapter = adapter
 
         viewModel.books.observe(viewLifecycleOwner, Observer {
-            Log.d(TAG, "list: ${it?.size}")
+            Timber.d("list: ${it?.size}")
             showEmptyList(it?.size == 0)
             adapter.submitList(it)
         })
@@ -101,55 +102,6 @@ class BookListFragment : Fragment(){
         } else {
             binding.rvBooks.visibility = View.VISIBLE
             binding.tvError.visibility = View.GONE
-        }
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-//        val safeArgs: BookListFragmentArgs by navArgs()
-//        val query = safeArgs.query
-//        try {
-//            bookUrl = if (query.isEmpty()) {
-//                Log.d(TAG, "no query")
-//                ApiUtil.buildUrl("cooking")
-//            } else {
-//                Log.d(TAG, query)
-//                URL(query)
-//            }
-//            BooksQueryTask().execute(bookUrl)
-//        }
-//        catch (e: Exception) {
-//            Log.d("error", e.message)
-//        }
-    }
-
-
-    inner class BooksQueryTask : AsyncTask<URL?, Void?, String?>() {
-        override fun doInBackground(vararg urls: URL?): String? {
-            val searchUrl = urls[0]
-            var result: String? = null
-            try {
-                result = ApiUtil.getJson(searchUrl)
-            } catch (e: IOException) {
-                Log.e("Error", e.message)
-            }
-            return result
-        }
-
-        override fun onPostExecute(result: String?) {
-//            mLoading.setVisibility(View.INVISIBLE)
-            if (result == null) {
-                binding.rvBooks.visibility = View.INVISIBLE
-                binding.tvError.visibility = View.VISIBLE
-            } else {
-                binding.rvBooks.visibility = View.VISIBLE
-                binding.tvError.visibility = View.INVISIBLE
-                val books = ApiUtil.getBooksFromJson(result)
-                val resultString = ""
-                val adapter = BookAdapter()
-                binding.rvBooks.adapter = adapter
-            }
         }
     }
 

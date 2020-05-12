@@ -1,7 +1,6 @@
 package com.example.books.api
 
 import android.util.Log
-import com.example.books.ApiUtil
 import com.example.books.model.Book
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -12,8 +11,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
+import timber.log.Timber
 
-private const val TAG = "BookService"
 private const val TITLE = "intitle:"
 private const val AUTHOR = "inauthor:"
 private const val PUBLISHER = "inpublisher:"
@@ -30,7 +29,7 @@ fun searchBooks(
         onSuccess: (repos: List<Book>) -> Unit,
         onError: (error: String) -> Unit
 ) {
-    Log.d(TAG, "title: $title, max: $max")
+    Timber.d("title: $title, max: $max")
     val sb = StringBuilder()
     if (title.isNotEmpty()) sb.append("$TITLE$title+")
     if (!author.isNullOrBlank()) sb.append("$AUTHOR$author+")
@@ -42,13 +41,13 @@ fun searchBooks(
     service.searchBooks(apiQuery, key, max).enqueue(
             object :Callback<BookSearchResponse> {
                 override fun onFailure(call: Call<BookSearchResponse>, t: Throwable) {
-                    Log.d(TAG, "fail to get data")
+                    Timber.d("fail to get data")
                     onError(t.message ?: "unknown error")
                 }
 
                 override fun onResponse(call: Call<BookSearchResponse>,
                                         response: Response<BookSearchResponse>) {
-                    Log.d(TAG, "got a response $response")
+                    Timber.d("got a response $response")
                     if (response.isSuccessful) {
                         val books = response.body()?.items ?: emptyList()
                         onSuccess(books)
