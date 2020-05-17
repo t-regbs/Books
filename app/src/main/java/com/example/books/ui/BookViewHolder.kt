@@ -22,9 +22,6 @@ class BookViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     init {
         view.setOnClickListener {
             book?.let {
-//             val intent = Intent(view.context, BookDetail::class.java)
-//                intent.putExtra("Book", it)
-//                view.context.startActivity(intent)
                 view.findNavController().navigate(BookListFragmentDirections.actionBooklistDestToBookDetailDest(it))
             }
         }

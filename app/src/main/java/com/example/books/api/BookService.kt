@@ -20,7 +20,7 @@ private const val ISBN = "isbn:"
 
 fun searchBooks(
         service: BookService,
-        title: String,
+        title: String?,
         author: String?,
         publisher: String?,
         isbn: String?,
@@ -31,7 +31,7 @@ fun searchBooks(
 ) {
     Timber.d("title: $title, max: $max")
     val sb = StringBuilder()
-    if (title.isNotEmpty()) sb.append("$TITLE$title+")
+    if (!title.isNullOrBlank()) sb.append("$TITLE$title+")
     if (!author.isNullOrBlank()) sb.append("$AUTHOR$author+")
     if (!publisher.isNullOrBlank()) sb.append("$PUBLISHER$publisher+")
     if (!isbn.isNullOrBlank()) sb.append("$ISBN$isbn+")

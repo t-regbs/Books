@@ -14,7 +14,6 @@ import com.example.books.*
 import com.example.books.databinding.FragmentBookListBinding
 import com.example.books.util.SpUtil
 import timber.log.Timber
-import java.net.URL
 
 class BookListFragment : Fragment(){
 
@@ -25,7 +24,6 @@ class BookListFragment : Fragment(){
 
     companion object {
         private const val LAST_SEARCH_QUERY = "last_search_query"
-        private const val DEFAULT_QUERY = "cooking"
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -42,7 +40,12 @@ class BookListFragment : Fragment(){
 
         val safeArgs: BookListFragmentArgs by navArgs()
         queryArgs = safeArgs.query
-        val query = savedInstanceState?.getString(LAST_SEARCH_QUERY) ?: queryArgs
+
+        val queryString = queryArgs.split(",")
+        val lastSearchString = if (viewModel.lastTitleValue() != null)
+            listOf(viewModel.lastTitleValue()) else null
+        val query:List<String?> = lastSearchString ?: queryString
+        Timber.d("$lastSearchString")
         viewModel.searchBooks(query)
 
         return binding.root
@@ -73,7 +76,7 @@ class BookListFragment : Fragment(){
         query?.trim().let {
             if (!it.isNullOrEmpty()) {
                 binding.rvBooks.scrollToPosition(0)
-                viewModel.searchBooks(it.toString())
+                viewModel.searchBooks(listOf(it.toString()))
                 adapter.submitList(null)
             }
         }
@@ -107,11 +110,11 @@ class BookListFragment : Fragment(){
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.book_list_menu, menu)
         initSearch(menu)
-        val recentList: ArrayList<String> = SpUtil.getQueryList(requireContext())
-        var recentMenu: MenuItem? = null
-        for (item in recentList){
-            recentMenu = menu.add(Menu.NONE, recentList.indexOf(item), Menu.NONE, item)
-        }
+//        val recentList: ArrayList<String> = SpUtil.getQueryList(requireContext())
+//        var recentMenu: MenuItem? = null
+//        for (item in recentList){
+//            recentMenu = menu.add(Menu.NONE, recentList.indexOf(item), Menu.NONE, item)
+//        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

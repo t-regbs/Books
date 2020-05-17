@@ -11,17 +11,31 @@ import com.example.books.repository.BooksRepository
 
 class BookListViewModel(private val repository: BooksRepository) : ViewModel() {
 
-    private val titleLiveData = MutableLiveData<String>()
-    private val bookResult: LiveData<BookSearchResult> = Transformations.map(titleLiveData) { title ->
-        repository.search(title)
+    private var title = ""
+    private var author = ""
+    private var publisher = ""
+    private var isbn = ""
+    private val queryLiveData = MutableLiveData<List<String?>>()
+    private val bookResult: LiveData<BookSearchResult> = Transformations.map(queryLiveData) { query ->
+        title = query[0] ?: ""
+        if (query.size > 1) {
+            author = query[1] ?: ""
+            publisher = query[2] ?: ""
+            isbn = query[3] ?: ""
+        } else {
+            author = ""
+            publisher = ""
+            isbn = ""
+        }
+        repository.search(title, author, publisher, isbn)
     }
 
     val books: LiveData<PagedList<Book>> = Transformations.switchMap(bookResult) { it.data}
     val networkErrors: LiveData<String> = Transformations.switchMap(bookResult) { it.networkErrors }
 
-    fun searchBooks(title: String) {
-        titleLiveData.postValue(title)
+    fun searchBooks(query: List<String?>) {
+        queryLiveData.postValue(query)
     }
 
-    fun lastTitleValue(): String? = titleLiveData.value
+    fun lastTitleValue(): String? = queryLiveData.value?.get(0)
 }

@@ -7,7 +7,7 @@ import com.example.books.model.BookSearchResult
 import timber.log.Timber
 
 class BooksRepository(private val service: BookService, private val cache: BooksLocalCache) {
-    fun search(title: String, author: String = "", publisher: String = "", isbn: String = "")
+    fun search(title: String = "", author: String = "", publisher: String = "", isbn: String = "")
             : BookSearchResult {
         Timber.d("new search: $title")
 

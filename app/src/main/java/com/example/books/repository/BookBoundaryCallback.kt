@@ -10,7 +10,7 @@ import com.example.books.db.BooksLocalCache
 import com.example.books.model.Book
 
 class BookBoundaryCallback(
-        private val title: String, private val author: String = "",
+        private val title: String = "", private val author: String = "",
         private val publisher: String = "", private val service: BookService,
         private val cache: BooksLocalCache)
     : PagedList.BoundaryCallback<Book>() {
