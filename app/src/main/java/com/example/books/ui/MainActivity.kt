@@ -28,9 +28,15 @@ class MainActivity : AppCompatActivity() {
 
         // Set up Action Bar
         val navController = host.navController
+        appBarConfiguration = AppBarConfiguration(setOf(R.id.booklist_dest))
 
-        setupActionBarWithNavController(navController)
+        setupActionBarWithNavController(navController, appBarConfiguration)
 
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        return NavigationUI.navigateUp(
+            this.findNavController(R.id.nav_host_fragment), appBarConfiguration
+        )
+    }
 }

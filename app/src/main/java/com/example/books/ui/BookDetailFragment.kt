@@ -11,7 +11,8 @@ import com.example.books.databinding.FragmentBookDetailBinding
 class BookDetailFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding: FragmentBookDetailBinding = FragmentBookDetailBinding.inflate(inflater, container, false)
+        val binding: FragmentBookDetailBinding =
+                FragmentBookDetailBinding.inflate(inflater, container, false)
 
         val safeArgs: BookDetailFragmentArgs by navArgs()
         val book = safeArgs.book

@@ -1,8 +1,6 @@
 package com.example.books.ui
 
-import android.os.AsyncTask
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
@@ -12,18 +10,15 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.books.*
 import com.example.books.databinding.FragmentBookListBinding
 import com.example.books.util.SpUtil
 import timber.log.Timber
-import java.io.IOException
 import java.net.URL
 
 class BookListFragment : Fragment(){
 
-    private lateinit var bookUrl: URL
+    private lateinit var queryArgs: String
     private lateinit var binding: FragmentBookListBinding
     private lateinit var viewModel: BookListViewModel
     private val adapter = BookAdapter()
@@ -44,7 +39,10 @@ class BookListFragment : Fragment(){
         binding.rvBooks.addItemDecoration(decoration)
 
         initAdapter()
-        val query = savedInstanceState?.getString(LAST_SEARCH_QUERY) ?: DEFAULT_QUERY
+
+        val safeArgs: BookListFragmentArgs by navArgs()
+        queryArgs = safeArgs.query
+        val query = savedInstanceState?.getString(LAST_SEARCH_QUERY) ?: queryArgs
         viewModel.searchBooks(query)
 
         return binding.root
@@ -120,9 +118,9 @@ class BookListFragment : Fragment(){
         when(item.itemId) {
             R.id.search_dest -> {
                 findNavController().navigate(BookListFragmentDirections.actionBooklistDestToSearchDest())
+                return true
             }
             R.id.action_search -> {
-
             }
         }
         return super.onOptionsItemSelected(item)
