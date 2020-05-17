@@ -1,6 +1,5 @@
 package com.example.books.repository
 
-import android.util.Log
 import androidx.paging.LivePagedListBuilder
 import com.example.books.api.BookService
 import com.example.books.db.BooksLocalCache

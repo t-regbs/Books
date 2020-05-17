@@ -4,12 +4,10 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
-import androidx.databinding.BindingAdapter
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.example.books.BookDetail
+//import com.example.books.BookDetail
 import com.example.books.R
 import com.example.books.model.Book
 
@@ -24,9 +22,10 @@ class BookViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     init {
         view.setOnClickListener {
             book?.let {
-                val intent = Intent(view.context, BookDetail::class.java)
-                intent.putExtra("Book", it)
-                view.context.startActivity(intent)
+//             val intent = Intent(view.context, BookDetail::class.java)
+//                intent.putExtra("Book", it)
+//                view.context.startActivity(intent)
+                view.findNavController().navigate(BookListFragmentDirections.actionBooklistDestToBookDetailDest(it))
             }
         }
     }

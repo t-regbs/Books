@@ -17,6 +17,9 @@
         <action
             android:id="@+id/action_booklist_dest_to_search_dest"
             app:destination="@id/search_dest" />
+        <action
+            android:id="@+id/action_booklist_dest_to_bookDetail_dest"
+            app:destination="@id/bookDetail_dest" />
     </fragment>
     <fragment
         android:id="@+id/search_dest"
@@ -26,6 +29,15 @@
         <action
             android:id="@+id/action_searchFragment_to_booklist_dest"
             app:destination="@id/booklist_dest" />
+    </fragment>
+    <fragment
+        android:id="@+id/bookDetail_dest"
+        android:name="com.example.books.ui.BookDetailFragment"
+        tools:layout="@layout/fragment_book_detail"
+        android:label="BookDetailFragment" >
+        <argument
+            android:name="book"
+            app:argType="com.example.books.model.Book" />
     </fragment>
 
 </navigation>

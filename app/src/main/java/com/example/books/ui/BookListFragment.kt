@@ -59,7 +59,7 @@ class BookListFragment : Fragment(){
                     updateBookListFromInput(query)
 
                 } catch (e: Exception){
-                    Timber.d(e.message);
+                    Timber.d(e);
                 }
                 return false
             }
