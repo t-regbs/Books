@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/booklist_dest">
+
+    <fragment
+        android:id="@+id/booklist_dest"
+        android:name="com.example.books.ui.BookListFragment"
+        android:label="Books"
+        tools:layout="@layout/fragment_book_list">
+        <argument
+            android:name="query"
+            app:argType="string"
+            android:defaultValue="cooking" />
+        <action
+            android:id="@+id/action_booklist_dest_to_search_dest"
+            app:destination="@id/search_dest" />
+        <action
+            android:id="@+id/action_booklist_dest_to_bookDetail_dest"
+            app:destination="@id/bookDetail_dest" />
+    </fragment>
+    <fragment
+        android:id="@+id/search_dest"
+        android:name="com.example.books.ui.SearchFragment"
+        android:label="SearchFragment"
+        tools:layout="@layout/fragment_search">
+        <action
+            android:id="@+id/action_searchFragment_to_booklist_dest"
+            app:destination="@id/booklist_dest" />
+    </fragment>
+    <fragment
+        android:id="@+id/bookDetail_dest"
+        android:name="com.example.books.ui.BookDetailFragment"
+        tools:layout="@layout/fragment_book_detail"
+        android:label="BookDetailFragment" >
+        <argument
+            android:name="book"
+            app:argType="com.example.books.model.Book" />
+    </fragment>
+
+</navigation>
