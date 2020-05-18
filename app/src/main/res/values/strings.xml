@@ -9,4 +9,6 @@
     <string name="hint_publisher">Insert Publisher</string>
     <string name="hint_isbn">Insert ISBN</string>
     <string name="advanced_search">Advanced Search</string>
+    <string name="loading">Loading</string>
+    <string name="unknown">Unknown</string>
 </resources>
