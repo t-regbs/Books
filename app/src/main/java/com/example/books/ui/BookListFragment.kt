@@ -35,6 +35,7 @@ class BookListFragment : Fragment(){
 
         val decoration = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
         binding.rvBooks.addItemDecoration(decoration)
+        binding.pbLoading.visibility = View.VISIBLE
 
         initAdapter()
 
@@ -77,6 +78,7 @@ class BookListFragment : Fragment(){
             if (!it.isNullOrEmpty()) {
                 binding.rvBooks.scrollToPosition(0)
                 viewModel.searchBooks(listOf(it.toString()))
+                binding.pbLoading.visibility = View.VISIBLE
                 adapter.submitList(null)
             }
         }
@@ -87,6 +89,7 @@ class BookListFragment : Fragment(){
 
         viewModel.books.observe(viewLifecycleOwner, Observer {
             Timber.d("list: ${it?.size}")
+            binding.pbLoading.visibility = View.GONE
             showEmptyList(it?.size == 0)
             adapter.submitList(it)
         })
@@ -110,11 +113,11 @@ class BookListFragment : Fragment(){
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.book_list_menu, menu)
         initSearch(menu)
-//        val recentList: ArrayList<String> = SpUtil.getQueryList(requireContext())
-//        var recentMenu: MenuItem? = null
-//        for (item in recentList){
-//            recentMenu = menu.add(Menu.NONE, recentList.indexOf(item), Menu.NONE, item)
-//        }
+        val recentList: ArrayList<String> = SpUtil.getQueryList(requireContext())
+        var recentMenu: MenuItem? = null
+        for (item in recentList){
+            recentMenu = menu.add(Menu.NONE, recentList.indexOf(item), Menu.NONE, item)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -122,8 +125,6 @@ class BookListFragment : Fragment(){
             R.id.search_dest -> {
                 findNavController().navigate(BookListFragmentDirections.actionBooklistDestToSearchDest())
                 return true
-            }
-            R.id.action_search -> {
             }
         }
         return super.onOptionsItemSelected(item)
