@@ -77,8 +77,8 @@ class BookListFragment : Fragment(){
         query?.trim().let {
             if (!it.isNullOrEmpty()) {
                 binding.rvBooks.scrollToPosition(0)
-                viewModel.searchBooks(listOf(it.toString()))
                 binding.pbLoading.visibility = View.VISIBLE
+                viewModel.searchBooks(listOf(it.toString()))
                 adapter.submitList(null)
             }
         }
