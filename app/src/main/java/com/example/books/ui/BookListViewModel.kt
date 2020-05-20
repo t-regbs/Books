@@ -30,7 +30,7 @@ class BookListViewModel(private val repository: BooksRepository) : ViewModel() {
         repository.search(title, author, publisher, isbn)
     }
 
-    val books: LiveData<PagedList<Book>> = Transformations.switchMap(bookResult) { it.data}
+    val books: LiveData<PagedList<Book>> = Transformations.switchMap(bookResult) { it.data }
     val networkErrors: LiveData<String> = Transformations.switchMap(bookResult) { it.networkErrors }
 
     fun searchBooks(query: List<String?>) {

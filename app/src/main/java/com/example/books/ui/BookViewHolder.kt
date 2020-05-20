@@ -4,9 +4,11 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.example.books.Injection
 //import com.example.books.BookDetail
 import com.example.books.R
 import com.example.books.model.Book
@@ -16,6 +18,7 @@ class BookViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val tvAuthors: TextView = view.findViewById(R.id.tvAuthors)
     private val tvDate: TextView = view.findViewById(R.id.tvPublishedDate)
     private val tvPublisher: TextView = view.findViewById(R.id.tvPublisher)
+    private val imageList: ImageView = view.findViewById(R.id.imgList)
 
     private var book: Book? = null
 
@@ -42,7 +45,9 @@ class BookViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private fun showRepoData(book: Book) {
         this.book = book
         tvTitle.text = book.volumeInfo.title
-
+        Injection.provideGlideInstance(itemView.context, Injection.provideRequestOptions())
+                .load(book.volumeInfo.imageLinks.thumbnail)
+                .into(imageList)
         tvAuthors.text = book.volumeInfo.authors?.get(0) ?: ""
         tvDate.text = book.volumeInfo.publishedDate
         tvPublisher.text = book.volumeInfo.publisher

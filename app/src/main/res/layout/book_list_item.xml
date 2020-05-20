@@ -6,6 +6,7 @@
     android:weightSum="100">
     
     <ImageView
+        android:id="@+id/imgList"
         android:layout_width="0dp"
         android:layout_weight="15"
         android:src="@drawable/book_open"

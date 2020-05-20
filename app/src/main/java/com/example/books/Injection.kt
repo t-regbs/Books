@@ -1,5 +1,6 @@
 package com.example.books
 
+import android.app.Application
 import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -36,6 +37,18 @@ object Injection {
      */
     fun provideViewModelFactory(context: Context): ViewModelProvider.Factory {
         return ViewModelFactory(provideBooksRepository(context))
+    }
+
+    fun provideRequestOptions(): RequestOptions {
+        return RequestOptions
+                .placeholderOf(R.drawable.book_open)
+                .error(R.drawable.book_open)
+    }
+
+    fun provideGlideInstance(context: Context, requestOptions: RequestOptions)
+            : RequestManager {
+        return Glide.with(context)
+                .setDefaultRequestOptions(requestOptions)
     }
 
 }
