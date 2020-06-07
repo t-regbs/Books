@@ -1,23 +1,22 @@
 package com.example.books.db
 
 import androidx.room.TypeConverter
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+import com.squareup.moshi.*
 
 
 class DataConverter {
 
+    val moshi = Moshi.Builder().build()
+    val type = Types.newParameterizedType(List::class.java, String::class.java)
+    val adapter: JsonAdapter<List<String>> = moshi.adapter(type)
+
     @TypeConverter
-    fun fromAuthorsList(value: List<String?>?): String? {
-        val gson = Gson()
-        val type = object : TypeToken<List<String>>() {}.type
-        return gson.toJson(value, type)
+    fun fromAuthorsList(value: List<String>?): String? {
+        return adapter.toJson(value)
     }
 
     @TypeConverter
-    fun toAuthorsList(value: String?): List<String?>? {
-        val gson = Gson()
-        val type = object : TypeToken<List<String>>() {}.type
-        return gson.fromJson(value, type)
+    fun toAuthorsList(value: String?): List<String>? {
+        return value?.let { adapter.fromJson(value) }
     }
 }

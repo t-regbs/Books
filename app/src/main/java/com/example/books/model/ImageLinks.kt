@@ -1,9 +1,9 @@
 package com.example.books.model
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
 import java.io.Serializable
 
 data class ImageLinks(
-        @field:SerializedName("smallThumbnail") val smallThumbnail: String?,
-        @field:SerializedName("thumbnail") val thumbnail: String?
+        @field:Json(name = "smallThumbnail") val smallThumbnail: String?,
+        @field:Json(name = "thumbnail") val thumbnail: String?
 ) : Serializable

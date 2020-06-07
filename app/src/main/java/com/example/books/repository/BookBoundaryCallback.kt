@@ -8,6 +8,9 @@ import com.example.books.api.BookService
 import com.example.books.api.searchBooks
 import com.example.books.db.BooksLocalCache
 import com.example.books.model.Book
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class BookBoundaryCallback(
         private val title: String = "", private val author: String = "",
@@ -30,30 +33,30 @@ class BookBoundaryCallback(
     }
 
     override fun onZeroItemsLoaded() {
-        requestAndSaveData(title, author, publisher)
+        GlobalScope.launch(Dispatchers.Main) {
+            requestAndSaveData(title, author, publisher)
+        }
+
     }
 
     override fun onItemAtEndLoaded(itemAtEnd: Book) {
-        requestAndSaveData(title, author, publisher)
+        GlobalScope.launch(Dispatchers.Main) {
+            requestAndSaveData(title, author, publisher)
+        }
+
     }
 
-    private fun requestAndSaveData(query: String, author: String, publisher: String) {
+    private suspend fun requestAndSaveData(query: String, author: String, publisher: String) {
         if (isRequestInProgress) return
 
         isRequestInProgress = true
-        searchBooks(
+        val books = searchBooks(
                 service, query, author = author, publisher = publisher, max = NETWORK_PAGE_SIZE,
-                key = Injection.API_KEY, isbn = "",
-                onSuccess = { books ->
-                    cache.insert(books) {
-                        lastRequestedPage++
-                        isRequestInProgress = false
-                    }
-                },
-                onError = { error ->
-                    _networkErrors.postValue(error)
-                    isRequestInProgress = false
-                }
+                key = Injection.API_KEY, isbn = ""
         )
+        cache.insert(books) {
+            lastRequestedPage++
+            isRequestInProgress = false
+        }
     }
 }
