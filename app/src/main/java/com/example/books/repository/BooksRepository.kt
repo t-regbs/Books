@@ -1,19 +1,20 @@
 package com.example.books.repository
 
+import android.content.Context
 import androidx.paging.LivePagedListBuilder
 import com.example.books.api.BookService
 import com.example.books.db.BooksLocalCache
 import com.example.books.model.BookSearchResult
 import timber.log.Timber
 
-class BooksRepository(private val service: BookService, private val cache: BooksLocalCache) {
+class BooksRepository(private val service: BookService, private val cache: BooksLocalCache, private val context: Context) {
     fun search(title: String = "", author: String = "", publisher: String = "", isbn: String = "")
             : BookSearchResult {
         Timber.d("new search: $title")
 
         val dataSourceFactory = cache.getBooks(title, author, publisher, isbn)
 
-        val boundaryCallback = BookBoundaryCallback(title, author, publisher, service, cache)
+        val boundaryCallback = BookBoundaryCallback(title, author, publisher, service, cache, context)
         val networkErrors = boundaryCallback.networkErrors
 
         // Get the paged list

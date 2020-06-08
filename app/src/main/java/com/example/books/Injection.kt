@@ -1,6 +1,5 @@
 package com.example.books
 
-import android.app.Application
 import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -28,7 +27,7 @@ object Injection {
      * [BooksLocalCache]
      */
     private fun provideBooksRepository(context: Context): BooksRepository {
-        return BooksRepository(BookService.create(), provideCache(context))
+        return BooksRepository(BookService.create(), provideCache(context), context)
     }
 
     /**

@@ -7,11 +7,9 @@ import timber.log.Timber
 import java.util.concurrent.Executor
 
 class BooksLocalCache(private val booksDao: BooksDao, private val ioExecutor: Executor) {
-
     fun insert(books: List<Book>, insertFinished: () -> Unit) {
         ioExecutor.execute {
             Timber.d("inserting ${books.size} books")
-            Timber.d( "inserting ${books[0]} ")
             booksDao.insert(books)
             insertFinished()
         }
