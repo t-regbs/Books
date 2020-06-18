@@ -8,6 +8,7 @@ import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterF
 import kotlinx.coroutines.Deferred
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
@@ -20,15 +21,17 @@ private const val PUBLISHER = "inpublisher:"
 private const val ISBN = "isbn:"
 
 suspend fun searchBooks(
-        context: Context,
         service: BookService,
         title: String?,
         author: String?,
         publisher: String?,
         isbn: String?,
         max: Int,
-        key: String
-): List<Book>{
+        key: String,
+        page: Int = 1,
+        onSuccess: suspend (books: List<Book>) -> Unit,
+        onError: (error: String) -> Unit
+){
     Timber.d("title: $title, max: $max")
     val sb = StringBuilder()
     if (!title.isNullOrBlank()) sb.append("$TITLE$title+")
@@ -38,25 +41,30 @@ suspend fun searchBooks(
     sb.setLength(sb.length - 1)
     val apiQuery = sb.toString()
 
-    return if (context.isOnline()) {
-        val request = service.searchBooks(apiQuery, key, max)
-        Timber.d("Fetching from remote...")
-        val response = request.await()
-        response.items
-    } else {
-        emptyList()
+    try {
+        val response = service.searchBooks(apiQuery, key, max)
+        if (response.isSuccessful) {
+            Timber.d("got a response: $response")
+            response.body()?.let {
+                onSuccess(it.items)
+            }
+        } else {
+            Timber.d("failed to get a response: $response")
+            onError(response.errorBody().toString())
+        }
+    } catch (err: Throwable) {
+        Timber.d("failed to get a response with error $err")
+        onError(err.message ?: "unknown error")
     }
-
-
 }
 
 interface BookService {
     @GET("volumes")
-    fun searchBooks(
+    suspend fun searchBooks(
             @Query("q") query: String,
             @Query("key") apiKey: String,
             @Query("maxResults") max: Int
-    ): Deferred<BookSearchResponse>
+    ): Response<BookSearchResponse>
 
     companion object {
         private const val BASE_URL = "https://www.googleapis.com/books/v1/"

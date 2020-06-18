@@ -32,9 +32,14 @@ class BookListViewModel(private val repository: BooksRepository) : ViewModel() {
 
     val books: LiveData<PagedList<Book>> = Transformations.switchMap(bookResult) { it.data }
     val networkErrors: LiveData<String> = Transformations.switchMap(bookResult) { it.networkErrors }
+    var loadingSpinner: LiveData<Boolean> = Transformations.switchMap(bookResult){it.loadingData}
 
     fun searchBooks(query: List<String?>) {
         queryLiveData.postValue(query)
+    }
+
+    fun refreshQuery() {
+        queryLiveData.postValue(queryLiveData.value)
     }
 
     fun lastTitleValue(): String? = queryLiveData.value?.get(0)
