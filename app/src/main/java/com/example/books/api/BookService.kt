@@ -28,11 +28,11 @@ suspend fun searchBooks(
         isbn: String?,
         max: Int,
         key: String,
-        page: Int = 1,
+        page: Int = 0,
         onSuccess: suspend (books: List<Book>) -> Unit,
         onError: (error: String) -> Unit
 ){
-    Timber.d("title: $title, max: $max")
+    Timber.d("title: $title, max: $max, page: $page")
     val sb = StringBuilder()
     if (!title.isNullOrBlank()) sb.append("$TITLE$title+")
     if (!author.isNullOrBlank()) sb.append("$AUTHOR$author+")
@@ -42,7 +42,7 @@ suspend fun searchBooks(
     val apiQuery = sb.toString()
 
     try {
-        val response = service.searchBooks(apiQuery, key, max)
+        val response = service.searchBooks(apiQuery, key, max, page)
         if (response.isSuccessful) {
             Timber.d("got a response: $response")
             response.body()?.let {
@@ -63,7 +63,8 @@ interface BookService {
     suspend fun searchBooks(
             @Query("q") query: String,
             @Query("key") apiKey: String,
-            @Query("maxResults") max: Int
+            @Query("maxResults") max: Int,
+            @Query("startIndex") page: Int
     ): Response<BookSearchResponse>
 
     companion object {
