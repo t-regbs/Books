@@ -1,9 +1,6 @@
 package com.example.books.util
 
-import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import com.bumptech.glide.Glide
-import com.example.books.Injection
 import com.example.books.R
 import com.example.books.ui.view.CircularImageView
 

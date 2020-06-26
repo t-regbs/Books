@@ -3,9 +3,7 @@ package com.example.books.api
 import android.content.Context
 import android.util.Log
 import com.example.books.model.Book
-import com.example.books.util.isOnline
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import kotlinx.coroutines.Deferred
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Response

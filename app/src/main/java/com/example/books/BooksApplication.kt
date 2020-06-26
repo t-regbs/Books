@@ -2,6 +2,7 @@ package com.example.books
 
 import android.app.Application
 import com.example.books.repository.BooksRepository
+import com.example.books.util.Injection
 import timber.log.Timber
 
 class BooksApplication : Application() {

@@ -1,6 +1,5 @@
 package com.example.books.ui
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.example.books.Injection
+import com.example.books.util.Injection
 //import com.example.books.BookDetail
 import com.example.books.R
 import com.example.books.model.Book

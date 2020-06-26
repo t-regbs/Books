@@ -1,9 +1,10 @@
-package com.example.books
+package com.example.books.util
 
 import android.content.Context
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.request.RequestOptions
+import com.example.books.R
 import com.example.books.api.BookService
 import com.example.books.db.BooksDatabase
 import com.example.books.repository.BooksRepository
@@ -28,7 +29,8 @@ object Injection {
      */
     fun provideBooksRepository(context: Context): BooksRepository{
         synchronized(this){
-            return booksRepository?: createBooksRepository(context)
+            return booksRepository
+                    ?: createBooksRepository(context)
         }
     }
 
