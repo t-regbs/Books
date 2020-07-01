@@ -33,8 +33,8 @@
     <fragment
         android:id="@+id/bookDetail_dest"
         android:name="com.example.books.ui.BookDetailFragment"
-        tools:layout="@layout/fragment_book_detail"
-        android:label="BookDetailFragment" >
+        android:label="Detail"
+        tools:layout="@layout/fragment_book_detail">
         <argument
             android:name="book"
             app:argType="com.example.books.model.Book" />

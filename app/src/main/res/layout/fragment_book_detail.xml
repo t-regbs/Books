@@ -67,6 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
+            tools:text="Authors"
             android:text="@{Book.volumeInfo.authors[0]}"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@id/tvPublisher"
@@ -80,6 +81,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
+            tools:text="Publisher"
             android:text="@{Book.volumeInfo.publisher}"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -91,6 +93,7 @@
             style="@style/TextAppearance.AppCompat.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            tools:text="Published Date"
             android:text="@{Book.volumeInfo.publishedDate}"
             app:layout_constraintStart_toStartOf="@id/tvPublisher"
             app:layout_constraintTop_toBottomOf="@id/tvPublisher" />
@@ -106,12 +109,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvPublishedDate" />
 
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:paddingTop="16dp"
-            android:layout_marginBottom="16dp"
+            android:scrollbars="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/divider">
+
             <LinearLayout
                 android:id="@+id/scrollLinear"
                 android:layout_width="match_parent"
@@ -124,7 +131,7 @@
                     android:layout_marginStart="@dimen/standard_margin"
                     android:layout_marginTop="@dimen/standard_margin"
                     android:layout_marginEnd="@dimen/standard_margin"
-                    android:text="Description"
+                    android:text="@string/detail_description"
                     android:textSize="16sp" />
 
                 <TextView
@@ -134,11 +141,12 @@
                     android:layout_marginStart="@dimen/standard_margin"
                     android:layout_marginTop="@dimen/standard_margin"
                     android:layout_marginEnd="@dimen/standard_margin"
+                    tools:text="Blah blah blah"
                     android:text="@{Book.volumeInfo.description}"
                     android:textSize="16sp" />
 
             </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
+        </ScrollView>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -21,13 +21,11 @@ class BookDetailFragment : Fragment() {
         val binding: FragmentBookDetailBinding =
                 FragmentBookDetailBinding.inflate(inflater, container, false)
 
-//        (activity as AppCompatActivity).supportActionBar?.customView?.alph
-
         val safeArgs: BookDetailFragmentArgs by navArgs()
         val book = safeArgs.book
         binding.book = book
 
-        val azureColor = R.color.shapeColor.toColorInt(requireContext())
+        val azureColor = R.color.colorPrimary.toColorInt(requireContext())
         val avatarRadius = R.dimen.avatar_radius.resToPx(requireContext())
         val avatarMargin = R.dimen.avatar_margin.resToPx(requireContext())
         val cardWidth = ViewGroup.LayoutParams.MATCH_PARENT

@@ -40,8 +40,7 @@ class MainActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener { _, destination: NavDestination, _ ->
             when (destination.id) {
-                R.id.booklist_dest -> {setToolbarColor(R.color.colorPrimary)}
-                R.id.bookDetail_dest -> { setToolbarColor(R.color.shapeColor) }
+                R.id.bookDetail_dest -> { supportActionBar!!.elevation = 16F }
             }
         }
 
@@ -51,10 +50,6 @@ class MainActivity : AppCompatActivity() {
         return NavigationUI.navigateUp(
             this.findNavController(R.id.nav_host_fragment), appBarConfiguration
         )
-    }
-
-    private fun setToolbarColor(colorId : Int){
-        supportActionBar!!.setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(this, colorId)))
     }
 
 }

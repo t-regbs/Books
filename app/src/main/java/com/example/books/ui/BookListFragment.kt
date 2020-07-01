@@ -28,12 +28,10 @@ class BookListFragment : Fragment(){
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
-        val decoration = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
         binding = FragmentBookListBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
             viewModel = bookListViewModel
             rvBooks.adapter = adapter
-            rvBooks.addItemDecoration(decoration)
         }
         val safeArgs: BookListFragmentArgs by navArgs()
         queryArgs = safeArgs.query
