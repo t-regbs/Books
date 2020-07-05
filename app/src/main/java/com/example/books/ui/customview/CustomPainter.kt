@@ -1,4 +1,4 @@
-package com.example.books.ui.view
+package com.example.books.ui.customview
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -16,12 +16,12 @@ class CustomPainter(
     private val painter: Painter
 ) : View(context) {
 
-  init {
-    layoutParams = ViewGroup.LayoutParams(width, height)
-  }
+    init {
+        layoutParams = ViewGroup.LayoutParams(width, height)
+    }
 
-  override fun onDraw(canvas: Canvas?) {
-    super.onDraw(canvas)
-    canvas?.let(painter::paint)
-  }
+    override fun onDraw(canvas: Canvas?) {
+        super.onDraw(canvas)
+        canvas?.let(painter::paint)
+    }
 }

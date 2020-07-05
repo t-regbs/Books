@@ -1,11 +1,11 @@
-package com.example.books.db
+package com.example.books.data.db
 
 import androidx.paging.DataSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.books.model.Book
+import com.example.books.data.model.Book
 
 @Dao
 interface BooksDao {
@@ -14,6 +14,5 @@ interface BooksDao {
 
     @Query("SELECT * FROM books WHERE (title LIKE :title) OR (authors LIKE :author) " +
             "OR (publisher LIKE :publisher) ORDER BY title ASC")
-    fun getBooks(title: String, author: String = "", publisher: String = "")
-            : DataSource.Factory<Int, Book>
+    fun getBooks(title: String, author: String = "", publisher: String = ""): DataSource.Factory<Int, Book>
 }

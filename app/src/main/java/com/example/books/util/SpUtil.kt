@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import java.util.*
 
 object SpUtil {
+    const val API_KEY = "AIzaSyBxHmT9nFCp9n2uOHkS3Gcq2OO3zbxaMrw"
     const val PREF_NAME = "BooksPreferences"
     const val POSITION = "position"
     const val QUERY = "query"

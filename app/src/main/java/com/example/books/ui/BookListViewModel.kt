@@ -5,9 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagedList
-import com.example.books.model.Book
-import com.example.books.model.BookSearchResult
-import com.example.books.repository.BooksRepository
+import com.example.books.data.model.Book
+import com.example.books.data.model.BookSearchResult
+import com.example.books.data.repository.BooksRepository
 
 class BookListViewModel(private val repository: BooksRepository) : ViewModel() {
 
@@ -32,7 +32,7 @@ class BookListViewModel(private val repository: BooksRepository) : ViewModel() {
 
     val books: LiveData<PagedList<Book>> = Transformations.switchMap(bookResult) { it.data }
     val networkErrors: LiveData<String> = Transformations.switchMap(bookResult) { it.networkErrors }
-    var loadingSpinner: LiveData<Boolean> = Transformations.switchMap(bookResult){it.loadingData}
+    var loadingSpinner: LiveData<Boolean> = Transformations.switchMap(bookResult) { it.loadingData }
 
     fun searchBooks(query: List<String?>) {
         queryLiveData.postValue(query)

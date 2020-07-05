@@ -1,4 +1,4 @@
-package com.example.books.ui.view
+package com.example.books.ui.customview
 
 import android.graphics.*
 import androidx.annotation.ColorInt
@@ -8,7 +8,7 @@ class ProfileCardPainter(
     @ColorInt private val color: Int,
     private val avatarRadius: Float,
     private val avatarMargin: Float
-): Painter {
+) : Painter {
     override fun paint(canvas: Canvas) {
         val width = canvas.width.toFloat()
         val height = canvas.height.toFloat()
@@ -27,7 +27,6 @@ class ProfileCardPainter(
             shapeBounds.bottom
         )
         drawCurvedShape(canvas, curvedShapeBounds, avatarBounds)
-
     }
 
     private fun drawBackground(canvas: Canvas, bounds: RectF, avatarBounds: RectF) {
@@ -42,7 +41,7 @@ class ProfileCardPainter(
             lineTo(bounds.topRight.x, bounds.topRight.y)
             close()
         }
-        canvas.drawPath(backgroundPath, paint);
+        canvas.drawPath(backgroundPath, paint)
     }
 
     private fun drawCurvedShape(canvas: Canvas, bounds: RectF, avatarBounds: RectF) {
@@ -74,5 +73,4 @@ class ProfileCardPainter(
             Shader.TileMode.REPEAT
         )
     }
-
 }

@@ -10,7 +10,7 @@
 
         <variable
             name="book"
-            type="com.example.books.model.Book" />
+            type="com.example.books.data.model.Book" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -32,9 +32,10 @@
                 android:id="@+id/imgList"
                 android:layout_width="0dp"
                 android:layout_weight="15"
-                android:src="@drawable/book_open"
+                android:imageUrl="@{book.volumeInfo.imageLinks.thumbnail}"
                 android:layout_height="wrap_content"
-                android:padding="8dp" />
+                android:padding="8dp"
+                android:contentDescription="@string/book_cover_image" />
 
             <LinearLayout
                 android:layout_width="0dp"

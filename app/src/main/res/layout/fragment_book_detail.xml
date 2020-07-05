@@ -6,12 +6,19 @@
     <data>
         <variable
             name="Book"
-            type="com.example.books.model.Book" />
+            type="com.example.books.data.model.Book" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="205dp" />
 
         <FrameLayout
             android:id="@+id/profileCardContainer"
@@ -30,6 +37,7 @@
             android:layout_marginBottom="114dp"
             android:gravity="center"
             android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="@id/profileCardContainer"
             app:layout_constraintBottom_toBottomOf="@id/profileCardContainer"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -39,6 +47,7 @@
                 style="@style/TextAppearance.AppCompat.Display1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                tools:text="Book Title"
                 android:text="@{Book.volumeInfo.title}"
                 android:textColor="#F5F5F5" />
 
@@ -47,11 +56,12 @@
                 style="@style/TextAppearance.AppCompat.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                tools:text="Book Subtitle"
                 android:text="@{Book.volumeInfo.subTitle}"
                 android:textColor="#E0E0E0" />
         </LinearLayout>
 
-        <com.example.books.ui.view.CircularImageView
+        <com.example.books.ui.customview.CircularImageView
             android:id="@+id/imgCover"
             android:layout_width="96dp"
             android:layout_height="96dp"
@@ -66,27 +76,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            tools:text="Authors"
+            android:layout_marginTop="8dp"
             android:text="@{Book.volumeInfo.authors[0]}"
             android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@id/tvPublisher"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/profileCardContainer" />
+            app:layout_constraintTop_toBottomOf="@id/profileCardContainer"
+            tools:text="Authors" />
 
         <TextView
             android:id="@+id/tvPublisher"
             style="@style/TextAppearance.AppCompat.Small"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            tools:text="Publisher"
             android:text="@{Book.volumeInfo.publisher}"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/tvAuthors"
-            app:layout_constraintTop_toBottomOf="@id/profileCardContainer" />
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@id/profileCardContainer"
+            tools:text="Publisher" />
 
         <TextView
             android:id="@+id/tvPublishedDate"
@@ -96,6 +106,7 @@
             tools:text="Published Date"
             android:text="@{Book.volumeInfo.publishedDate}"
             app:layout_constraintStart_toStartOf="@id/tvPublisher"
+            app:layout_constraintEnd_toEndOf="@id/tvPublisher"
             app:layout_constraintTop_toBottomOf="@id/tvPublisher" />
 
         <View
@@ -113,6 +124,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:paddingTop="16dp"
+            android:paddingBottom="16dp"
             android:scrollbars="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

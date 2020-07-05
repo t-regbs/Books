@@ -1,21 +1,12 @@
 package com.example.books
 
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
-import android.view.Window
-import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContextCompat
 import androidx.navigation.ui.*
-import com.example.books.R
-import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
 
@@ -43,7 +34,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.bookDetail_dest -> { supportActionBar!!.elevation = 16F }
             }
         }
-
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -51,5 +41,4 @@ class MainActivity : AppCompatActivity() {
             this.findNavController(R.id.nav_host_fragment), appBarConfiguration
         )
     }
-
 }

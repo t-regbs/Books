@@ -6,7 +6,7 @@ import androidx.navigation.findNavController
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.books.model.Book
+import com.example.books.data.model.Book
 
 class BookAdapter : PagedListAdapter<Book, RecyclerView.ViewHolder>(BOOK_COMPARATOR) {
 

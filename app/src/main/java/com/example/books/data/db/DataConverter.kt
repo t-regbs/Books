@@ -1,9 +1,7 @@
-package com.example.books.db
+package com.example.books.data.db
 
 import androidx.room.TypeConverter
 import com.squareup.moshi.*
-
-
 class DataConverter {
 
     val moshi = Moshi.Builder().build()

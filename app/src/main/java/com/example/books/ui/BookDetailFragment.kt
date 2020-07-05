@@ -4,14 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.graphics.alpha
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.example.books.R
 import com.example.books.databinding.FragmentBookDetailBinding
-import com.example.books.ui.view.CustomPainter
-import com.example.books.ui.view.ProfileCardPainter
+import com.example.books.ui.customview.CustomPainter
+import com.example.books.ui.customview.ProfileCardPainter
 import com.example.books.util.resToPx
 import com.example.books.util.toColorInt
 

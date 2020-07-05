@@ -12,7 +12,7 @@ import com.example.books.util.SpUtil
 import com.example.books.databinding.FragmentSearchBinding
 import androidx.navigation.fragment.findNavController
 
-class SearchFragment : Fragment(){
+class SearchFragment : Fragment() {
 
     private lateinit var binding: FragmentSearchBinding
 
@@ -28,7 +28,7 @@ class SearchFragment : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnSearch.setOnClickListener(View.OnClickListener {
+        binding.btnSearch.setOnClickListener {
             val title = binding.etTitle.text.toString().trim { it <= ' ' }
             val author = binding.etAuthor.text.toString().trim { it <= ' ' }
             val publisher = binding.etPublisher.text.toString().trim { it <= ' ' }
@@ -38,7 +38,7 @@ class SearchFragment : Fragment(){
                 Toast.makeText(context, message, Toast.LENGTH_LONG).show()
             } else {
                 val context: Context = requireContext()
-                //Shared Preference
+                // Shared Preference
                 var position = SpUtil.getPreferenceInt(context, SpUtil.POSITION)
                 if (position == 0 || position == 5) {
                     position = 1
@@ -53,6 +53,6 @@ class SearchFragment : Fragment(){
                 val action = SearchFragmentDirections.actionSearchFragmentToBooklistDest(value)
                 findNavController().navigate(action)
             }
-        })
+        }
     }
 }

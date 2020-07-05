@@ -2,25 +2,22 @@ package com.example.books.ui
 
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.navigation.ui.onNavDestinationSelected
 import com.example.books.*
 import com.example.books.databinding.FragmentBookListBinding
 import com.example.books.util.SpUtil
 import com.google.android.material.snackbar.Snackbar
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-class BookListFragment : Fragment(){
+class BookListFragment : Fragment() {
 
-    private val bookListViewModel by viewModels<BookListViewModel> {
-        ViewModelFactory((requireActivity().applicationContext as BooksApplication).booksRepository)
-    }
+    private val bookListViewModel by viewModel<BookListViewModel>()
 
     private lateinit var queryArgs: String
     private lateinit var binding: FragmentBookListBinding
@@ -39,7 +36,7 @@ class BookListFragment : Fragment(){
         val queryString = queryArgs.split(",")
         val lastSearchString = if (bookListViewModel.lastTitleValue() != null)
             listOf(bookListViewModel.lastTitleValue()) else null
-        val query:List<String?> = lastSearchString ?: queryString
+        val query: List<String?> = lastSearchString ?: queryString
         Timber.d("$lastSearchString")
         bookListViewModel.searchBooks(query)
 
@@ -55,13 +52,12 @@ class BookListFragment : Fragment(){
     private fun initSearch(menu: Menu) {
         val searchItem = menu.findItem(R.id.action_search)
         val searchView = searchItem.actionView as android.widget.SearchView
-        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener, android.widget.SearchView.OnQueryTextListener {
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener, android.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 try {
                     updateBookListFromInput(query)
-
-                } catch (e: Exception){
-                    Timber.d(e);
+                } catch (e: Exception) {
+                    Timber.d(e)
                 }
                 return false
             }
@@ -69,7 +65,6 @@ class BookListFragment : Fragment(){
             override fun onQueryTextChange(newText: String?): Boolean {
                 return false
             }
-
         })
     }
 
@@ -96,34 +91,18 @@ class BookListFragment : Fragment(){
         })
     }
 
-//    private fun showEmptyList(show: Boolean) {
-//        if (show) {
-//            binding.rvBooks.visibility = View.GONE
-//            binding.tvError.visibility = View.VISIBLE
-//        } else {
-//            binding.rvBooks.visibility = View.VISIBLE
-//            binding.tvError.visibility = View.GONE
-//        }
-//    }
-
-
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.book_list_menu, menu)
         initSearch(menu)
         val recentList: ArrayList<String> = SpUtil.getQueryList(requireContext())
         var recentMenu: MenuItem? = null
-        for (item in recentList){
+        for (item in recentList) {
             recentMenu = menu.add(Menu.NONE, recentList.indexOf(item), Menu.NONE, item)
         }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
-            R.id.search_dest -> {
-                findNavController().navigate(BookListFragmentDirections.actionBooklistDestToSearchDest())
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
+        return item.onNavDestinationSelected(findNavController()) ||
+                super.onOptionsItemSelected(item)
     }
 }
