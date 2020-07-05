@@ -3,13 +3,15 @@ package com.example.books.data.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagedList
+import com.example.books.BuildConfig
 import com.example.books.data.api.BookService
 import com.example.books.data.api.searchBooks
 import com.example.books.data.db.BooksDao
 import com.example.books.data.model.Book
-import com.example.books.util.SpUtil.API_KEY
 import kotlinx.coroutines.*
 import timber.log.Timber
+
+private const val apiKey: String = BuildConfig.API_KEY
 
 class BookBoundaryCallback(
     private val title: String = "",
@@ -68,7 +70,7 @@ class BookBoundaryCallback(
                 publisher,
                 "",
                 NETWORK_PAGE_SIZE,
-                API_KEY,
+                apiKey,
                 lastRequestedPage,
                 { books ->
                     booksDao.insert(books)

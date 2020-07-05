@@ -16,8 +16,14 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug {
+            buildConfigField 'String', "API_KEY", Books_ApiKey
+            resValue 'string', "api_key", Books_ApiKey
+        }
         release {
             minifyEnabled false
+            buildConfigField 'String', "API_KEY", Books_ApiKey
+            resValue 'string', "api_key", Books_ApiKey
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
