@@ -40,6 +40,7 @@ class BookListFragment : Fragment() {
         Timber.d("$lastSearchString")
         bookListViewModel.searchBooks(query)
 
+        setHasOptionsMenu(true)
         return binding.root
     }
 
