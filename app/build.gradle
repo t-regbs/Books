@@ -4,6 +4,10 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
 apply plugin: 'kotlin-kapt'
 
+def apikeyPropertiesFile = rootProject.file("apikey.properties")
+def apikeyProperties = new Properties()
+apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -14,16 +18,11 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "API_KEY", apikeyProperties['Books_ApiKey'])
     }
     buildTypes {
-        debug {
-            buildConfigField 'String', "API_KEY", Books_ApiKey
-            resValue 'string', "api_key", Books_ApiKey
-        }
         release {
             minifyEnabled false
-            buildConfigField 'String', "API_KEY", Books_ApiKey
-            resValue 'string', "api_key", Books_ApiKey
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }

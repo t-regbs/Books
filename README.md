@@ -7,9 +7,9 @@ This project is built to show how to build modern android applications following
 
 ## Getting started
 
-After cloning the project, find the `gradle.properties` in the `.gradle` folder inside the project directory.
+After cloning the project, in your projects root directory, create a file `apikey.properties`.
 You'll need an api key from [Google Books Api](https://developers.google.com/books).
-Add `Books_ApiKey = "YOUR-API-KEY"` to that file.
+Add the line `Books_ApiKey = "YOUR-API-KEY"` to that file.
 
 Libraries Used
 --------------
