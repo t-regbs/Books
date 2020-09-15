@@ -4,11 +4,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.paging.PagedListAdapter
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.books.data.model.Book
 
-class BookAdapter : PagedListAdapter<Book, RecyclerView.ViewHolder>(BOOK_COMPARATOR) {
+class BookAdapter : PagingDataAdapter<Book, RecyclerView.ViewHolder>(BOOK_COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return BookViewHolder.create(parent)

@@ -13,4 +13,5 @@
     <string name="unknown">Unknown</string>
     <string name="detail_description">Description</string>
     <string name="book_cover_image">Book cover image</string>
+    <string name="retry">Retry</string>
 </resources>

@@ -1,46 +1,48 @@
 package com.example.books.ui
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import androidx.paging.PagedList
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.example.books.data.model.Book
 import com.example.books.data.model.BookSearchResult
 import com.example.books.data.repository.BooksRepository
+import kotlinx.coroutines.flow.Flow
 
 class BookListViewModel(private val repository: BooksRepository) : ViewModel() {
 
-    private var title = ""
-    private var author = ""
-    private var publisher = ""
-    private var isbn = ""
-    private val queryLiveData = MutableLiveData<List<String?>>()
-    private val bookResult: LiveData<BookSearchResult> = Transformations.map(queryLiveData) { query ->
-        title = query[0] ?: ""
-        if (query.size > 1) {
-            author = query[1] ?: ""
-            publisher = query[2] ?: ""
-            isbn = query[3] ?: ""
-        } else {
-            author = ""
-            publisher = ""
-            isbn = ""
+//    private var title = ""
+//    private var author = ""
+//    private var publisher = ""
+//    private var isbn = ""
+//    private val queryLiveData = MutableLiveData<List<String?>>()
+//    private val bookResult: LiveData<BookSearchResult> = Transformations.map(queryLiveData) { query ->
+//        title = query[0] ?: ""
+//        if (query.size > 1) {
+//            author = query[1] ?: ""
+//            publisher = query[2] ?: ""
+//            isbn = query[3] ?: ""
+//        } else {
+//            author = ""
+//            publisher = ""
+//            isbn = ""
+//        }
+//        repository.search(title, author, publisher, isbn)
+//    }
+
+    private var currentQueryValue: String? = null
+
+    private var currentSearchResult: Flow<PagingData<Book>>? = null
+
+    fun searchRepo(queryString: String): Flow<PagingData<Book>> {
+        val lastResult = currentSearchResult
+        if (queryString == currentQueryValue && lastResult != null) {
+            return lastResult
         }
-        repository.search(title, author, publisher, isbn)
+        currentQueryValue = queryString
+        val newResult: Flow<PagingData<Book>> = repository.getSearchResultStream(queryString)
+            .cachedIn(viewModelScope)
+        currentSearchResult = newResult
+        return newResult
     }
-
-    val books: LiveData<PagedList<Book>> = Transformations.switchMap(bookResult) { it.data }
-    val networkErrors: LiveData<String> = Transformations.switchMap(bookResult) { it.networkErrors }
-    var loadingSpinner: LiveData<Boolean> = Transformations.switchMap(bookResult) { it.loadingData }
-
-    fun searchBooks(query: List<String?>) {
-        queryLiveData.postValue(query)
-    }
-
-    fun refreshQuery() {
-        queryLiveData.postValue(queryLiveData.value)
-    }
-
-    fun lastTitleValue(): String? = queryLiveData.value?.get(0)
 }

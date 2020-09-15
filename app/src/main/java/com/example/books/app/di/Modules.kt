@@ -64,18 +64,12 @@ val databaseModule = module {
                 "Books.db")
                 .build()
     }
-
-    fun provideDao(database: BooksDatabase): BooksDao {
-        return database.bookDao
-    }
-
     single { provideDatabase(androidApplication()) }
-    single { provideDao(get()) }
 }
 
 val repositoryModule = module {
-    fun provideRepository(api: BookService, dao: BooksDao): BooksRepository {
-        return BooksRepository(api, dao)
+    fun provideRepository(api: BookService, database: BooksDatabase): BooksRepository {
+        return BooksRepository(api, database)
     }
 
     single { provideRepository(get(), get()) }

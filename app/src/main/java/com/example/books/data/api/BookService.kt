@@ -6,10 +6,10 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 import timber.log.Timber
 
-private const val TITLE = "intitle:"
-private const val AUTHOR = "inauthor:"
-private const val PUBLISHER = "inpublisher:"
-private const val ISBN = "isbn:"
+const val TITLE = "intitle:"
+const val AUTHOR = "inauthor:"
+const val PUBLISHER = "inpublisher:"
+const val ISBN = "isbn:"
 
 suspend fun searchBooks(
     service: BookService,
@@ -33,16 +33,16 @@ suspend fun searchBooks(
     val apiQuery = sb.toString()
 
     try {
-        val response = service.searchBooks(apiQuery, key, max, page)
-        if (response.isSuccessful) {
-            Timber.d("got a response: $response")
-            response.body()?.let {
-                onSuccess(it.items)
-            }
-        } else {
-            Timber.d("failed to get a response: $response")
-            onError(response.errorBody().toString())
-        }
+        val apiResponse = service.searchBooks(apiQuery, key, max, page)
+//        if (response.isSuccessful) {
+//            Timber.d("got a response: $response")
+//            response.body()?.let {
+//                onSuccess(it.items)
+//            }
+//        } else {
+//            Timber.d("failed to get a response: $response")
+//            onError(response.errorBody().toString())
+//        }
     } catch (err: Throwable) {
         Timber.d("failed to get a response with error $err")
         onError(err.message ?: "unknown error")
@@ -56,5 +56,5 @@ interface BookService {
         @Query("key") apiKey: String,
         @Query("maxResults") max: Int,
         @Query("startIndex") page: Int
-    ): Response<BookSearchResponse>
+    ): BookSearchResponse
 }

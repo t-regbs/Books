@@ -61,8 +61,8 @@ task clean(type: Delete) {
 
 ext {
     archComponentsVersion = '2.2.0'
-    roomVersion = '2.2.5'
-    pagingVersion = '2.1.2'
+    roomVersion = '2.3.0-alpha01'
+    pagingVersion = '3.0.0-alpha02'
     retrofitVersion = '2.9.0'
     okhttpLoggingInterceptorVersion = '4.7.2'
 }

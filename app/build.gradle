@@ -33,6 +33,7 @@ android {
 
     kotlinOptions {
         jvmTarget = "1.8"
+        freeCompilerArgs += ["-Xopt-in=kotlin.RequiresOptIn"]
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -62,9 +63,11 @@ dependencies {
     // architecture components
     implementation "androidx.lifecycle:lifecycle-extensions:$archComponentsVersion"
     implementation "androidx.lifecycle:lifecycle-runtime:$archComponentsVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$archComponentsVersion"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$archComponentsVersion"
     implementation "androidx.room:room-runtime:$roomVersion"
     implementation "androidx.paging:paging-runtime:$pagingVersion"
-    kapt "androidx.lifecycle:lifecycle-compiler:$archComponentsVersion"
+    implementation "androidx.room:room-ktx:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
 
     //Material components
